@@ -309,7 +309,88 @@ skyBox.position.set(0.050,20.00,0.00)
 scene.add(skyBox);
 
 
+//spot
+const meshArr =[];
+const totalGroup = new THREE.Group(); 
+scene.add(totalGroup);
 
+
+//spot
+
+var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var chair = new THREE.Mesh( spotgeometry, spotmaterial );
+        chair.name = "chair_info"
+        chair.position.set(-2.433,-1.520,-3.622);
+        chair.scale.x =1
+        chair.scale.y =1
+        chair.scale.z =1
+        meshArr.push(chair)
+        console.log(chair)
+
+
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var advanced_chair = new THREE.Mesh( spotgeometry, spotmaterial );
+        advanced_chair.name = "advanced_chair_info"
+        advanced_chair.position.set(2.731,-1.520,-4.040);
+        advanced_chair.scale.x =1
+        advanced_chair.scale.y =1
+        advanced_chair.scale.z =1
+        meshArr.push(advanced_chair)
+
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var random_spot1 = new THREE.Mesh( spotgeometry, spotmaterial );
+        random_spot1.name = "random_spot_1_info"
+        random_spot1.position.set(5.031,-1.520,1.240);
+        random_spot1.scale.x =1
+        random_spot1.scale.y =1
+        random_spot1.scale.z =1
+        meshArr.push(random_spot1)
+
+
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var random_spot2 = new THREE.Mesh( spotgeometry, spotmaterial );
+        random_spot2.name = "random_spot_2_info"
+        random_spot2.position.set(-4.893,-1.520,3.448);
+        random_spot2.scale.x =1
+        random_spot2.scale.y =1
+        random_spot2.scale.z =1
+        meshArr.push(random_spot2)
+
+
+
+
+
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var random_spot3 = new THREE.Mesh( spotgeometry, spotmaterial );
+        random_spot3.name = "random_spot_3_info"
+        random_spot3.position.set(0,-1.520,0);
+        random_spot3.scale.x =1
+        random_spot3.scale.y =1
+        random_spot3.scale.z =1
+        meshArr.push(random_spot3)
+
+
+        totalGroup.add( chair );
+        totalGroup.add( advanced_chair );
+        totalGroup.add( random_spot1 );
+        totalGroup.add( random_spot2 );
+        totalGroup.add( random_spot3 );
+        totalGroup.position.set(0,1.710,0)
+
+        // document.addEventListener('click', onDocumentMouseClick, false);
+        // window.addEventListener('resize', onWindowResize, false)
+        // window.addEventListener( 'pointermove', onPointerMove );
+
+        //   animate()
+
+
+        // function animate() {
+
+        // requestAnimationFrame(animate)
+        // render()
+
+        // }
 
 
 
