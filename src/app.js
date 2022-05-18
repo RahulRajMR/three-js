@@ -12,45 +12,46 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 //raycaster
 
 
-const raycaster = new THREE.Raycaster();
-const pointer = new THREE.Vector2();
+// const raycaster = new THREE.Raycaster();
+// const pointer = new THREE.Vector2();
 
 
 
-function onPointerMove( event ) {
+// function onPointerMove( event ) {
 
-	// calculate pointer position in normalized device coordinates
-	// (-1 to +1) for both components
+// 	// calculate pointer position in normalized device coordinates
+// 	// (-1 to +1) for both components
 
-	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-}
-
-function render() {
-
-	// update the picking ray with the camera and pointer position
-	raycaster.setFromCamera( pointer, camera );
-
-	// calculate objects intersecting the picking ray
-	const intersects = raycaster.intersectObjects( scene.children );
-
-	for ( let i = 0; i < intersects.length; i ++ ) {
-
-		intersects[ i ].object.material.color.set( 0xff0000 );
-
-	}
-
-	renderer.render( scene, camera );
-
-}
-
-window.addEventListener( 'pointermove', onPointerMove );
-
-window.requestAnimationFrame(render)
+// 	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+// 	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
 
-console.log("rest")
+// }
+
+// function render() {
+
+// 	// update the picking ray with the camera and pointer position
+// 	raycaster.setFromCamera( pointer, camera );
+
+// 	// calculate objects intersecting the picking ray
+// 	const intersects = raycaster.intersectObjects( scene.children );
+
+// 	for ( let i = 0; i < intersects.length; i ++ ) {
+
+// 		intersects[ i ].object.material.color.set( 0xff0000 );
+
+// 	}
+
+// 	renderer.render( scene, camera );
+
+// }
+
+// window.addEventListener( 'pointermove', onPointerMove );
+
+// window.requestAnimationFrame(render)
+
+
+
 
 
 
@@ -116,61 +117,7 @@ picturespotmesh1.rotation.y = 0.5 * Math.PI;
 
 
 
-//raycaster
-// const geometryray = new THREE.CylinderGeometry( 5, 5, 1, 32 );
-//   const materialray = new THREE.MeshPhongMaterial( {color:  "#FF7F50"} );
-//   const mesh = new THREE.Mesh( geometryray, materialray );
-//   mesh.position.set(25, 0,-20);
-//   meshArr.push(mesh);
-//   totalGroup.add( mesh );
 
-//   const materialray1 = new THREE.MeshPhongMaterial( {color: "#9FE2BF"} );
-//   const mesh1 = new THREE.Mesh( geometryray, materialray1 );
-//   mesh1.position.set(-25, 0,-20)
-//   meshArr.push(mesh1);
-//   totalGroup.add( mesh1 );
-
-//   const meshMat3 = new THREE.MeshPhongMaterial( {color: Math.round(Math.random() * 0xFFFFFF) } );
-//   const mesh3 = new THREE.Mesh( geometryray, meshMat3 );
-//   mesh3.position.set( 0 , 0, 40)
-//   meshArr.push(mesh3);
-//   totalGroup.add( mesh3 );
-
-
-//    totalGroup.add( plane );
-   
-
-
-
-
-
-  
-// var raycaster = new THREE.Raycaster();
-// var mouse = new THREE.Vector2();
-
-// function onMouseClick( event ) {
-//   if (dTime > 0) return;
-//   raycaster.setFromCamera( mouse, camera );
-//   const intersect = raycaster.intersectObjects( meshArr )[0];
-//   if (intersect && intersect.object) {
-//     const posObj = intersect.object.position,
-//           posTarget = {x:-posObj.x, z:-posObj.z},
-//           posTotal = totalGroup.position;
-//     dTime = transTime; dPos = {x: (posTotal.x - posTarget.x)/transTime, z:(posTotal.z - posTarget.z)/ transTime};
-   
-//   }
-// }
-
-// function onMouseMove( event ) {
-//   mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-//   mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-// }
-// document.addEventListener('click', onMouseClick, false);
-
-// window.addEventListener( 'mousemove', onMouseMove, false );
-
-
-// const loader = new FontLoader();
 
 
 
@@ -357,6 +304,8 @@ for(let i=0; i<textureArray.length; i++){
 // making cube
 const cubeGeometry = new THREE.BoxGeometry(100, 100, 100);
 const skyBox = new THREE.Mesh(cubeGeometry, textureArray);
+skyBox.rotation.set(0.00,0.510,0.00)
+skyBox.position.set(0.050,20.00,0.00)
 scene.add(skyBox);
 
 
@@ -461,6 +410,8 @@ fbxLoader.load(
     (object) => {
 
        object.scale.set(.01, .01, .01)
+    //    object.position.set(0, 18, 0)
+       console.log(object)
        scene.add(object)
 
        object.traverse( (child)=>
