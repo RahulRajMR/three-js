@@ -12,35 +12,50 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 //raycaster
 
 
-// const raycaster = new THREE.Raycaster();
-// const pointer = new THREE.Vector2();
+// var raycaster = new THREE.Raycaster();
+ const pointer = new THREE.Vector2();
 
 
 
-// function onPointerMove( event ) {
+function onPointerMove( event ) {
 
-// 	// calculate pointer position in normalized device coordinates
-// 	// (-1 to +1) for both components
+	// calculate pointer position in normalized device coordinates
+	// (-1 to +1) for both components
 
-// 	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-// 	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+	raycaster.setFromCamera( pointer, camera );
+
+	// calculate objects intersecting the picking ray
+
+const intersects = raycaster.intersectObjects( meshArr ,false);
+
+if (intersects){
+    for ( let i = 0; i < intersects.length; i ++ ) {
+
+		intersects[ i ].object.material.color.set( 0x00FF00 );
+        console.log( intersects[ i ].object)
+
+	}
+
+}
+	
+
+}
 
 
-// }
 
-// function render() {
+	// update the picking ray with the camera and pointer position
+	// raycaster.setFromCamera( pointer, camera );
 
-// 	// update the picking ray with the camera and pointer position
-// 	raycaster.setFromCamera( pointer, camera );
+	// // calculate objects intersecting the picking ray
+	// const intersects = raycaster.intersectObjects( scene.children );
 
-// 	// calculate objects intersecting the picking ray
-// 	const intersects = raycaster.intersectObjects( scene.children );
+	// for ( let i = 0; i < intersects.length; i ++ ) {
 
-// 	for ( let i = 0; i < intersects.length; i ++ ) {
+	// 	intersects[ i ].object.material.color.set( 0xff0000 );
 
-// 		intersects[ i ].object.material.color.set( 0xff0000 );
-
-// 	}
+	// }
 
 // 	renderer.render( scene, camera );
 
@@ -321,7 +336,7 @@ let INTERSECTED;
 //spot
 
 var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
-        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var chair = new THREE.Mesh( spotgeometry, spotmaterial );
         chair.name = "chair_info"
         chair.position.set(-2.433,-1.520,-3.622);
@@ -332,7 +347,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         console.log(chair)
 
 
-        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var advanced_chair = new THREE.Mesh( spotgeometry, spotmaterial );
         advanced_chair.name = "advanced_chair_info"
         advanced_chair.position.set(2.731,-1.520,-4.040);
@@ -341,7 +356,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         advanced_chair.scale.z =1
         meshArr.push(advanced_chair)
 
-        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var random_spot1 = new THREE.Mesh( spotgeometry, spotmaterial );
         random_spot1.name = "random_spot_1_info"
         random_spot1.position.set(5.031,-1.520,1.240);
@@ -351,7 +366,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         meshArr.push(random_spot1)
 
 
-        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var random_spot2 = new THREE.Mesh( spotgeometry, spotmaterial );
         random_spot2.name = "random_spot_2_info"
         random_spot2.position.set(-4.893,-1.520,3.448);
@@ -364,7 +379,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
 
 
 
-        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "#0000ff"} );
+        var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var random_spot3 = new THREE.Mesh( spotgeometry, spotmaterial );
         random_spot3.name = "random_spot_3_info"
         random_spot3.position.set(0,-1.520,0);
@@ -383,108 +398,104 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
 
         // document.addEventListener('click', onDocumentMouseClick, false);
         // window.addEventListener('resize', onWindowResize, false)
-        // window.addEventListener( 'pointermove', onPointerMove );
+         window.addEventListener( 'pointermove', onPointerMove );
 
-        //   animate()
+      
 
 
-        // function animate() {
 
-        // requestAnimationFrame(animate)
-        // render()
 
-        // }
 
-        function render() {
+        // function render() {
 
         
-            camera.lookAt( 0, 0, 0 );
-            camera.updateProjectionMatrix()
-            orbitControl.update();
-            if (dTime > 0) {
-                dTime--;
-                totalGroup.position.x -= dPos.x;
-                totalGroup.position.z -= dPos.z;
-            }
+        //     camera.lookAt( 0, 0, 0 );
+        //     camera.updateProjectionMatrix()
+        //     orbitControl.update();
+        //     if (dTime > 0) {
+        //         dTime--;
+        //         totalGroup.position.x -= dPos.x;
+        //         totalGroup.position.z -= dPos.z;
+        //     }
 
             
 
-            raycaster.setFromCamera( pointer, camera );
-            const intersects = raycaster.intersectObjects( meshArr , false);
+        //     raycaster.setFromCamera( pointer, camera );
+        //     const intersects = raycaster.intersectObjects( meshArr , false);
     
-                if ( intersects.length > 0 ) {
+        //         if ( intersects.length > 0 ) {
     
-                    if ( INTERSECTED != intersects[0].object ) {
-    
-    
-                        if ( INTERSECTED ){
-    
-                            INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+        //             if ( INTERSECTED != intersects[0].object ) {
     
     
-                            console.log("callled",INTERSECTED.currentHex );
+        //                 if ( INTERSECTED ){
     
-                        } else{
-    
-                            INTERSECTED = intersects[ 0 ].object;
-                            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-    
-                            console.log("callled1",INTERSECTED.currentHex );
-    
-                            INTERSECTED.material.emissive.setHex( 0xff0000 );
+        //                     INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
     
     
-                        }
+        //                     console.log("callled",INTERSECTED.currentHex );
     
-                        var canvasHalfWidth = renderer.domElement.offsetWidth / 2;
-                        var canvasHalfHeight = renderer.domElement.offsetHeight / 2;
+        //                 } else{
     
-                        var posx = (pointer.x * canvasHalfWidth) + canvasHalfWidth + renderer.domElement.offsetLeft;
-                        var posy = -(pointer.y * canvasHalfHeight) + canvasHalfHeight + renderer.domElement.offsetTop;
+        //                     INTERSECTED = intersects[ 0 ].object;
+        //                     INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+    
+        //                     console.log("callled1",INTERSECTED.currentHex );
+    
+        //                     INTERSECTED.material.emissive.setHex( 0xff0000 );
+    
+    
+        //                 }
+    
+        //                 var canvasHalfWidth = renderer.domElement.offsetWidth / 2;
+        //                 var canvasHalfHeight = renderer.domElement.offsetHeight / 2;
+    
+        //                 var posx = (pointer.x * canvasHalfWidth) + canvasHalfWidth + renderer.domElement.offsetLeft;
+        //                 var posy = -(pointer.y * canvasHalfHeight) + canvasHalfHeight + renderer.domElement.offsetTop;
                 
     
-                        var tootipWidth = $("#tooltip")[0].offsetWidth;
-                        var tootipHeight = $("#tooltip")[0].offsetHeight;
+        //                 var tootipWidth = $("#tooltip")[0].offsetWidth;
+        //                 var tootipHeight = $("#tooltip")[0].offsetHeight;
     
     
-                        console.log(posx)
+        //                 console.log(posx)
     
-                        console.log(posy)
-                        $("#tooltip").css({
-                            display: "block",
-                            opacity: 0.0
-                        });
-                        $("#tooltip").css({top : posx+'px',left : posy+'px'})
-                        $("#tooltip").css({opacity : '1'})
+        //                 console.log(posy)
+        //                 $("#tooltip").css({
+        //                     display: "block",
+        //                     opacity: 0.0
+        //                 });
+        //                 $("#tooltip").css({top : posx+'px',left : posy+'px'})
+        //                 $("#tooltip").css({opacity : '1'})
     
-                        $('html,body').css('cursor','pointer');
-    
-    
-                    }
-    
-                }else{
+        //                 $('html,body').css('cursor','pointer');
     
     
-                    if ( INTERSECTED ) {
+        //             }
+    
+        //         }else{
+    
+    
+        //             if ( INTERSECTED ) {
                         
-                        INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+        //                 INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
     
-                    }
+        //             }
     
-                    $("#tooltip").css({
-                        display: "none"
-                    });
-                    $('html,body').css('cursor','default');
+        //             $("#tooltip").css({
+        //                 display: "none"
+        //             });
+        //             $('html,body').css('cursor','default');
     
-                    INTERSECTED = null;
+        //             INTERSECTED = null;
     
-                }
+        //         }
     
     
     
-                renderer.render(scene, camera)
+        //         renderer.render(scene, camera)
     
-            }
+        //     }
     
 
 
@@ -838,6 +849,9 @@ const animate = function () {
 
     }
    
+
+
+
     // drone.position.x+=0.05;
     renderer.render( scene, camera );
      requestAnimationFrame( animate );
