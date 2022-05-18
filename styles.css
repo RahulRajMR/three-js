@@ -1,0 +1,33 @@
+
+
+body {
+ 
+  /* line-height: 1.65; */
+  overflow: hidden;
+  margin: 0;
+}
+.img-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 20px;
+  background-color: hsla(0,0%,100%,.8);
+  height: 150px;
+}
+.img-container img {
+  margin: 0 10px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.set-text {
+  position: absolute;
+  top: 275px;
+  left: 20px;
+  padding: 20px;
+  background-color: hsla(0,0%,100%,.8);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
