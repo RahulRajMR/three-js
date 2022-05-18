@@ -310,9 +310,12 @@ scene.add(skyBox);
 
 
 //spot
+const raycaster = new THREE.Raycaster();
 const meshArr =[];
 const totalGroup = new THREE.Group(); 
 scene.add(totalGroup);
+let INTERSECTED;
+
 
 
 //spot
@@ -392,9 +395,97 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
 
         // }
 
+        function render() {
 
+        
+            camera.lookAt( 0, 0, 0 );
+            camera.updateProjectionMatrix()
+            orbitControl.update();
+            if (dTime > 0) {
+                dTime--;
+                totalGroup.position.x -= dPos.x;
+                totalGroup.position.z -= dPos.z;
+            }
 
+            
 
+            raycaster.setFromCamera( pointer, camera );
+            const intersects = raycaster.intersectObjects( meshArr , false);
+    
+                if ( intersects.length > 0 ) {
+    
+                    if ( INTERSECTED != intersects[0].object ) {
+    
+    
+                        if ( INTERSECTED ){
+    
+                            INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+    
+    
+                            console.log("callled",INTERSECTED.currentHex );
+    
+                        } else{
+    
+                            INTERSECTED = intersects[ 0 ].object;
+                            INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
+    
+                            console.log("callled1",INTERSECTED.currentHex );
+    
+                            INTERSECTED.material.emissive.setHex( 0xff0000 );
+    
+    
+                        }
+    
+                        var canvasHalfWidth = renderer.domElement.offsetWidth / 2;
+                        var canvasHalfHeight = renderer.domElement.offsetHeight / 2;
+    
+                        var posx = (pointer.x * canvasHalfWidth) + canvasHalfWidth + renderer.domElement.offsetLeft;
+                        var posy = -(pointer.y * canvasHalfHeight) + canvasHalfHeight + renderer.domElement.offsetTop;
+                
+    
+                        var tootipWidth = $("#tooltip")[0].offsetWidth;
+                        var tootipHeight = $("#tooltip")[0].offsetHeight;
+    
+    
+                        console.log(posx)
+    
+                        console.log(posy)
+                        $("#tooltip").css({
+                            display: "block",
+                            opacity: 0.0
+                        });
+                        $("#tooltip").css({top : posx+'px',left : posy+'px'})
+                        $("#tooltip").css({opacity : '1'})
+    
+                        $('html,body').css('cursor','pointer');
+    
+    
+                    }
+    
+                }else{
+    
+    
+                    if ( INTERSECTED ) {
+                        
+                        INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
+    
+                    }
+    
+                    $("#tooltip").css({
+                        display: "none"
+                    });
+                    $('html,body').css('cursor','default');
+    
+                    INTERSECTED = null;
+    
+                }
+    
+    
+    
+                renderer.render(scene, camera)
+    
+            }
+    
 
 
 
