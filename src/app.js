@@ -465,6 +465,19 @@ fbxLoader.load(
 
        object.traverse( (child)=>
        {
+
+        
+        if(child.name == "Floor_White"  ) {
+
+
+
+            child.material.shininess = 0.2
+
+            child.material.needsUpdate = true
+
+
+
+        }
         child.castShadow = true; //default is false
         child.receiveShadow = true; //default
        } )
