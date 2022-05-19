@@ -5,9 +5,11 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import{FontLoader}from 'three/examples/jsm/loaders/FontLoader'
 // import{TextGeometry}from 'three/examples/jsm/loaders/F'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { Group } from 'three';
 
 
-
+var transtime =0
+var dpose=null
 
 //raycaster
 
@@ -19,8 +21,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 function onPointerMove( event ) {
 
-	// calculate pointer position in normalized device coordinates
-	// (-1 to +1) for both components
+	
 
 	pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
@@ -45,25 +46,6 @@ if (intersects){
 
 
 
-	// update the picking ray with the camera and pointer position
-	// raycaster.setFromCamera( pointer, camera );
-
-	// // calculate objects intersecting the picking ray
-	// const intersects = raycaster.intersectObjects( scene.children );
-
-	// for ( let i = 0; i < intersects.length; i ++ ) {
-
-	// 	intersects[ i ].object.material.color.set( 0xff0000 );
-
-	// }
-
-// 	renderer.render( scene, camera );
-
-// }
-
-// window.addEventListener( 'pointermove', onPointerMove );
-
-// window.requestAnimationFrame(render)
 
 
 
@@ -114,7 +96,7 @@ orbitControl.enablePan = false;
 const controls = new  OrbitControls(camera,renderer.domElement);
 let x = 1; let y = 1; let width = 90; let height = 50; let radius = 10;
 
-
+//video
 const video = document.getElementById( 'video' );
 const texture = new THREE.VideoTexture( video );
 // const geometry = new THREE.PlaneGeometry(0.87, 0.55, 0.01);
@@ -264,29 +246,6 @@ loader.load(
 
     
 )
-// const loader = new FontLoader();
-
-// const font = loader.load(
-// 	// resource URL
-// 	'fonts/helvetiker_bold.typeface.json',
-
-// 	// onLoad callback
-// 	function ( font ) {
-// 		// do something with the font
-// 		console.log( font );
-// 	},
-
-// 	// onProgress callback
-// 	function ( xhr ) {
-// 		console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-// 	},
-
-// 	// onError callback
-// 	function ( err ) {
-// 		console.log( 'An error happened' );
-// 	}
-// );
-
 
 //3d text2
 
@@ -339,7 +298,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var chair = new THREE.Mesh( spotgeometry, spotmaterial );
         chair.name = "chair_info"
-        chair.position.set(-2.433,-1.520,-3.622);
+        chair.position.set(-2.433,0.160,-3.622);
         chair.scale.x =1
         chair.scale.y =1
         chair.scale.z =1
@@ -350,7 +309,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var advanced_chair = new THREE.Mesh( spotgeometry, spotmaterial );
         advanced_chair.name = "advanced_chair_info"
-        advanced_chair.position.set(2.731,-1.520,-4.040);
+        advanced_chair.position.set(2.731,0.160,-4.040);
         advanced_chair.scale.x =1
         advanced_chair.scale.y =1
         advanced_chair.scale.z =1
@@ -359,7 +318,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var random_spot1 = new THREE.Mesh( spotgeometry, spotmaterial );
         random_spot1.name = "random_spot_1_info"
-        random_spot1.position.set(5.031,-1.520,1.240);
+        random_spot1.position.set(5.031,0.160,1.240);
         random_spot1.scale.x =1
         random_spot1.scale.y =1
         random_spot1.scale.z =1
@@ -369,10 +328,11 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var random_spot2 = new THREE.Mesh( spotgeometry, spotmaterial );
         random_spot2.name = "random_spot_2_info"
-        random_spot2.position.set(-4.893,-1.520,3.448);
+        random_spot2.position.set(-4.893,0.160,3.448);
         random_spot2.scale.x =1
         random_spot2.scale.y =1
         random_spot2.scale.z =1
+        
         meshArr.push(random_spot2)
 
 
@@ -382,7 +342,7 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         var spotmaterial = new THREE.MeshPhongMaterial( {color:  "white"} );
         var random_spot3 = new THREE.Mesh( spotgeometry, spotmaterial );
         random_spot3.name = "random_spot_3_info"
-        random_spot3.position.set(0,-1.520,0);
+        random_spot3.position.set(0,0.160,0);
         random_spot3.scale.x =1
         random_spot3.scale.y =1
         random_spot3.scale.z =1
@@ -394,114 +354,57 @@ var spotgeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.05, 24, 1);
         totalGroup.add( random_spot1 );
         totalGroup.add( random_spot2 );
         totalGroup.add( random_spot3 );
-        totalGroup.position.set(0,1.710,0)
 
-        // document.addEventListener('click', onDocumentMouseClick, false);
+        //totalGroup.position.set(0,-0.060,0)
+
+        /// document.addEventListener('click', onDocumentMouseClick, false);
         // window.addEventListener('resize', onWindowResize, false)
          window.addEventListener( 'pointermove', onPointerMove );
 
-      
+         document.addEventListener('click', onDocumentMouseClick, false);
 
+          
+         function onDocumentMouseClick(event){
 
+            let mouse = new THREE.Vector2();
 
-
-
-        // function render() {
-
-        
-        //     camera.lookAt( 0, 0, 0 );
-        //     camera.updateProjectionMatrix()
-        //     orbitControl.update();
-        //     if (dTime > 0) {
-        //         dTime--;
-        //         totalGroup.position.x -= dPos.x;
-        //         totalGroup.position.z -= dPos.z;
-        //     }
+            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    
+            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    
+            let raycaster = new THREE.Raycaster();
+    
+            raycaster.setFromCamera( mouse, camera );
 
             
+        let intersects = raycaster.intersectObjects( meshArr )[0];
 
-        //     raycaster.setFromCamera( pointer, camera );
-        //     const intersects = raycaster.intersectObjects( meshArr , false);
-    
-        //         if ( intersects.length > 0 ) {
-    
-        //             if ( INTERSECTED != intersects[0].object ) {
-    
-    
-        //                 if ( INTERSECTED ){
-    
-        //                     INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-    
-    
-        //                     console.log("callled",INTERSECTED.currentHex );
-    
-        //                 } else{
-    
-        //                     INTERSECTED = intersects[ 0 ].object;
-        //                     INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-    
-        //                     console.log("callled1",INTERSECTED.currentHex );
-    
-        //                     INTERSECTED.material.emissive.setHex( 0xff0000 );
-    
-    
-        //                 }
-    
-        //                 var canvasHalfWidth = renderer.domElement.offsetWidth / 2;
-        //                 var canvasHalfHeight = renderer.domElement.offsetHeight / 2;
-    
-        //                 var posx = (pointer.x * canvasHalfWidth) + canvasHalfWidth + renderer.domElement.offsetLeft;
-        //                 var posy = -(pointer.y * canvasHalfHeight) + canvasHalfHeight + renderer.domElement.offsetTop;
-                
-    
-        //                 var tootipWidth = $("#tooltip")[0].offsetWidth;
-        //                 var tootipHeight = $("#tooltip")[0].offsetHeight;
-    
-    
-        //                 console.log(posx)
-    
-        //                 console.log(posy)
-        //                 $("#tooltip").css({
-        //                     display: "block",
-        //                     opacity: 0.0
-        //                 });
-        //                 $("#tooltip").css({top : posx+'px',left : posy+'px'})
-        //                 $("#tooltip").css({opacity : '1'})
-    
-        //                 $('html,body').css('cursor','pointer');
-    
-    
-        //             }
-    
-        //         }else{
-    
-    
-        //             if ( INTERSECTED ) {
-                        
-        //                 INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
-    
-        //             }
-    
-        //             $("#tooltip").css({
-        //                 display: "none"
-        //             });
-        //             $('html,body').css('cursor','default');
-    
-        //             INTERSECTED = null;
-    
-        //         }
-    
-    
-    
-        //         renderer.render(scene, camera)
-    
-        //     }
-    
+        if (intersects && intersects.object) {
+
+            let posObj = intersects.object.position,
+
+            posTarget = {x:-posObj.x, z:-posObj.z},
+            
+            posTotal = totalGroup.position;
+            
+            transtime=50
+            
+            dpose = {
+            
+                x: (posTarget.x + posTotal.x)/transtime,
+            
+                z:(posTarget.z+posTotal.z)/ transtime
+            
+            };
+        }
 
 
+         }
 
 
-    
+        
+
+      
 
 
 let localPlane = new THREE.Plane( new THREE.Vector3(  0.4, 0, 0 ), 1 );
@@ -512,13 +415,6 @@ material.clipShadows = true;
 document.addEventListener('DOMContentLoaded', function () {
     video.play();
 });
-
-
-
-
-
-
-
 
 
 
@@ -570,6 +466,7 @@ fbxLoader.load(
     //    scene.add(objectdrone)
        console.log(objectdrone) 
        drone = objectdrone
+       totalGroup.add(objectdrone)
 
       
        scene.add( drone );
@@ -609,8 +506,12 @@ fbxLoader.load(
 
             child.material.needsUpdate = true
 
-
-
+                
+                
+             totalGroup.add(object)
+            //  totalGroup.position.x -= this.dPos.x;
+            //  totalGroup.position.z -= this.dPos.z;
+   
         }
         child.castShadow = true; //default is false
         child.receiveShadow = true; //default
@@ -620,14 +521,6 @@ fbxLoader.load(
 
     
 )
-
-// Lighting
-// const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
-// hemiLight.position.set( 0, 200, 0 );
-// scene.add( hemiLight );
-
-
-
 
 //texture
 
@@ -831,26 +724,21 @@ const animate = function () {
 
 
 
-        // if(currentPosition === "pos2"){
-        //     posx += 0.005
-
-        //     if(posx < 0 ){
-
-        //         currentPosition = ""
-
-        //     }
-
-        // }
-        // console.log("pos",drone.position)
-        // console.log("position",currentPosition)
+       
 
         drone.position.x = posx
         drone.position.z = posz
 
     }
    
+if (transtime > 0){
+    transtime--
+    totalGroup.position.x -= dpose.x
+    totalGroup.position.z -= dpose.z
+    console.log(totalGroup.position)
+}
 
-
+    
 
     // drone.position.x+=0.05;
     renderer.render( scene, camera );
@@ -858,28 +746,6 @@ const animate = function () {
 
 
 //texture
-
-
-
-
-
-// const ageometry = new THREE.PlaneGeometry( 1, 1 );
-// // const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-// const amaterial = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-
-// const aplane = new THREE.Mesh( geometry, material );
-
-// console.log(aplane) 
-
-// // plane.rotation.set(0,-1.57,0);
-// aplane.rotation.set(0,5,0);
-
-// aplane.position.set(4,2
-//     ,0);
-// aplane.scale.set(2,3.5,0);
-
-
-// scene.add( aplane );
 
 
 
